@@ -29,19 +29,22 @@ def main(focal, log_file):
     count = 0
     for line in tmp_file2.readlines():
         lon, lat, h = line.split()
+        h = str(Fraction(str(h))) if '/' in str(Fraction(str(h))) else str(Fraction(str(h))) + '/1'
         deglon, minslon, seclon, reflon = re.split('\'|"|d', lon)
-        secfraclon = Fraction(seclon)
+	secfraclon = str(Fraction(seclon)) if '/' in str(Fraction(seclon)) else str(Fraction(seclon)) + '/1'
         deglat, minslat, seclat, reflat = re.split('\'|"|d', lat)
-        secfraclat = Fraction(seclat)
+        secfraclat = str(Fraction(seclat)) if '/' in str(Fraction(seclat)) else str(Fraction(seclat)) + '/1'
 
-        os.system("""exiv2 -M"set Exif.GPSInfo.GPSLatitude {deglat}/1 {minslat}/1 {secfraclat}" -M"set Exif.GPSInfo.GPSLatitudeRef {reflat}" {image}""".format(deglat=deglat, minslat=minslat, secfraclat=secfraclat,
-                                                                       reflat=reflat, image=images[count]))
+        os.system('exiv2 -M"set Exif.GPSInfo.GPSLatitude {deglat}/1 {minslat}/1 {secfraclat}"'
+		  ' -M"set Exif.GPSInfo.GPSLatitudeRef {reflat}" {image}'.format(deglat=deglat, minslat=minslat, secfraclat=secfraclat,
+                                                                                 reflat=reflat, image=images[count]))
 
-        os.system("""exiv2 -M"set Exif.GPSInfo.GPSLongitude {deglon}/1 {minslon}/1 {secfraclon}" -M"set Exif.GPSInfo.GPSLongitudeRef {reflon}" {image}""".format(deglon=deglon, minslon=minslon, secfraclon=secfraclon,
-                                                                       reflon=reflon, image=images[count]))
-        os.system("""exiv2 -M"set Exif.GPSInfo.GPSAltitude {h}" {image}""".format(h=Fraction(str(h)), image=images[count]))
-        os.system("""exiv2 -M"set Exif.GPSInfo.GPSAltitudeRef 0" {image}""".format(image=images[count]))
-        os.system("""exiv2 -M"set Exif.Photo.FocalLength {focal}" {image}""".format(focal=Fraction(str(focal)), image=images[count]))
+        os.system('exiv2 -M"set Exif.GPSInfo.GPSLongitude {deglon}/1 {minslon}/1 {secfraclon}"'
+                  ' -M"set Exif.GPSInfo.GPSLongitudeRef {reflon}" {image}'.format(deglon=deglon, minslon=minslon, secfraclon=secfraclon,
+                                                                                  reflon=reflon, image=images[count]))
+        os.system('exiv2 -M"set Exif.GPSInfo.GPSAltitude {h}" {image}'.format(h=Fraction(h), image=images[count]))
+        os.system('exiv2 -M"set Exif.GPSInfo.GPSAltitudeRef 0" {image}'.format(image=images[count]))
+        os.system('exiv2 -M"set Exif.Photo.FocalLength {focal}" {image}'.format(focal=Fraction(str(focal)), image=images[count]))
         count +=1
 
     os.remove(tmp_file2.name)
