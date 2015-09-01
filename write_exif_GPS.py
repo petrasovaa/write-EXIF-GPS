@@ -1,5 +1,6 @@
 import tempfile
 import os
+import sys
 import re
 from fractions import Fraction
 
@@ -16,7 +17,7 @@ def main(focal, log_file):
         if count == 1:
             continue
 
-        image, latitude, longitude, altitude, yaw, pitch, roll = line.split(';')
+        image, latitude, longitude, altitude, yaw, pitch, roll = line.split(',')
         image_name, ext = image.split('.')
         images.append(image_name + '.' + ext.lower())
         tmp_file1.write("{long} {lat} {alt}\n".format(long=longitude, lat=latitude, alt=altitude))
