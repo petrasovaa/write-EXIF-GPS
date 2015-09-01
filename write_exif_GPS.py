@@ -42,7 +42,7 @@ def main(focal, log_file):
         os.system('exiv2 -M"set Exif.GPSInfo.GPSLongitude {deglon}/1 {minslon}/1 {secfraclon}"'
                   ' -M"set Exif.GPSInfo.GPSLongitudeRef {reflon}" {image}'.format(deglon=deglon, minslon=minslon, secfraclon=secfraclon,
                                                                                   reflon=reflon, image=images[count]))
-        os.system('exiv2 -M"set Exif.GPSInfo.GPSAltitude {h}" {image}'.format(h=Fraction(h), image=images[count]))
+        os.system('exiv2 -M"set Exif.GPSInfo.GPSAltitude {h}" {image}'.format(h=h, image=images[count]))
         os.system('exiv2 -M"set Exif.GPSInfo.GPSAltitudeRef 0" {image}'.format(image=images[count]))
         os.system('exiv2 -M"set Exif.Photo.FocalLength {focal}" {image}'.format(focal=Fraction(str(focal)), image=images[count]))
         count +=1
