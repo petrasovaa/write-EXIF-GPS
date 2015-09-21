@@ -14,5 +14,7 @@ The CSV file looks like this:
     DSC01512.JPG,35.72661482,-78.69441034,183.25,0.0671639,0.0174592,-0.081061
     DSC01513.JPG,35.72683582,-78.69438373,183.56,0.0761532,-0.00724168,-0.10356
 
+Currently the focal length is hardcoded.
+
 # Usage
 pyhton write_EXIF_GPS.py log.csv
