@@ -45,6 +45,9 @@ def main(focal, log_file):
         os.system('exiv2 -M"set Exif.GPSInfo.GPSAltitude {h}" {image}'.format(h=h, image=images[count]))
         os.system('exiv2 -M"set Exif.GPSInfo.GPSAltitudeRef 0" {image}'.format(image=images[count]))
         os.system('exiv2 -M"set Exif.Photo.FocalLength {focal}" {image}'.format(focal=Fraction(str(focal)), image=images[count]))
+        # update Lens tags needed by OpenSfm
+        os.system('exiv2 -q -M"set Exif.Photo.LensMake SONY" {image}'.format(image=images[count]))
+        os.system('exiv2 -q -M"set Exif.Photo.LensModel NEX-5T" {image}'.format(image=images[count]))
         count +=1
 
     os.remove(tmp_file2.name)
